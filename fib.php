@@ -1,44 +1,67 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>test</title>
 <link rel="stylesheet" href="style.css">
-<script type="text/javascript" src="fib.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
+<!-- script file import -->
+<script type="text/javascript" src="fib.js"></script>
+
+<!-- connection to database -->
+<?php
+  include 'db_connection.php';
+  $conn = OpenCon();
+?>
 </head>
+
 <body>
-  <header>
-    <div class="header">
-      <a href="#popup" class="header_phone popup-link">Kchau</a>
-    </div>
-  </header>
+  <div class="top">
+    <a href="#popup" class="header">Test</a>
+  </div>
+
   <div id="popup" class="popup">
     <a href="#header" class="popup_area"></a>
     <div class="popup_body">
       <div class="popup_content">
-        <a href="#header" class="popup_close">X</a>
-        <div class="popup_title">Modal Window #1</div>
+        <a href="#header" class="popup_close">x</a>
+        <div class="popup_title">Введите порядок числа фибоначи: </div>
         <div class="popup_calc">
-          <input type="text" name="num" placeholder="numberCalc">
-          <button type="submit" value="OK"></button>
+          <form>
+            <input type="text" name="num" placeholder="number to calculate">
+            <button name="submit" type="submit" value="submit">OK</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  <div id="main" class="main">
-    <p class="result">Result: </p>
-    <?php
-    if(isset($_GET['submit'])){
 
+  <div class="res"> Result:
+  <!-- calculation funcion -->
+  <?php
+    function Fibonacci($number){
+      // if and else if to generate fixed results
+      if ($number == 0){
+        return 0;
+      }
+      else if ($number == 1){
+        return 1;
+      }
+      // recursion
+      else{
+      // by the way, seems like fibonacci result of 12 is not 89, but 144
+        return (Fibonacci($number-1) + Fibonacci($number-2));
+      }
     }
-    // function getFib($n)
-    // {
-    //   return round(pow((sqrt(5)+1)/2, $n) / sqrt(5));
-    // }
-    ?>
+    if(isset($_GET['submit'])){
+      $result1 = $_GET['num'];
+      echo 'f('.$result1;
+      echo ')='.Fibonacci($result1);
+    }
+  ?>
   </div>
 </body>
+
+<!-- connection refused -->
+<?php CloseCon($conn); ?>
 
 </html>
