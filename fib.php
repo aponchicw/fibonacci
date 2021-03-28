@@ -68,7 +68,7 @@
           echo 'f('.$input;
           echo ')='.Fibonacci($input);
 
-          $insertion = mysqli_query($conn, "INSERT INTO `cache`(`number`, `fib_number`) VALUES ('" .$input. "','" .Fibonacci($input). "')");
+          $ins = mysqli_query($conn, "INSERT INTO `cache`(`number`, `fib_number`) VALUES ('" .$input. "','" .Fibonacci($input). "')");
         }
         break;
       }
